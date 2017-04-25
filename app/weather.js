@@ -3,15 +3,19 @@
 const config = require('./config');
 const https = require('https');
 // send the request
-const sendApiRequest = function(){
-    
+function sendApiRequest() {
+    https.get(`api.openweathermap.org/data/2.5/weather?${arguments[0]}&appid=${config.weather_api_key}`, (result) => {
+        return result;
+    });
 }
-const getZipCodeWeather = function(zipcode){
-    //send a request based on zipcode
+function getZipCodeWeather(zipcode) {
+    // send a request based on zipcode
+    return sendApiRequest(`zip=${zipcode}`);
 }
 
-const getStateCityWeather = function(city, state){
-    //sedn a requedst based on location
+function getStateCityWeather(city, state) {
+    // send a requedst based on location
+    return sendApiRequest(`city=${city}&state=${state}`);
 }
 
 module.exports.getWeatherByZipCode = getZipCodeWeather;

@@ -5,7 +5,7 @@ const fs = require('fs');
 const fileName = './config.json';
 let config;
 
-const getConfig = function () {
+function getConfig() {
     try {
         config = require(fileName);
     } catch (error) { 
@@ -13,6 +13,6 @@ const getConfig = function () {
         throw error;
     }
     return config;
-};
+}
 
 module.exports.getConfig = getConfig;
