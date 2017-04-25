@@ -8,7 +8,11 @@ let config;
 const getConfig = function () {
     try {
         config = require(fileName);
-    } catch (error) {
-        console.error(error);
+    } catch (error) { 
+        config = {};
+        throw error;
     }
-}
+    return config;
+};
+
+module.exports.getConfig = getConfig;
