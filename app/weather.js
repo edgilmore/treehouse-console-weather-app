@@ -1,10 +1,10 @@
 'use strict';
 
 const config = require('./config');
-
-// send the request 
+const https = require('https');
+// send the request
 const sendApiRequest = function(){
-
+    
 }
 const getZipCodeWeather = function(zipcode){
     //send a request based on zipcode
