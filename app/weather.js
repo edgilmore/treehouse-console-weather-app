@@ -24,9 +24,15 @@ function convertFromKelvinToFahrenheight(kelvinTemperature) {
   return `${convertedTemp.toFixed(2)} F`;
 }
 
+function getWeatherTempatureMessage(weather) {
+  const message = `Current temperature in ${weather.name} is ${convertFromKelvinToFahrenheight(weather.main.temp)}`;
+  return message;
+}
+
 function getWeather(searchString) {
   return sendApiRequest(`q=${searchString},us`);
 }
 
 module.exports.getWeather = getWeather;
 module.exports.convertTemperature = convertFromKelvinToFahrenheight;
+module.exports.getWeatherTempatureMessage = getWeatherTempatureMessage;

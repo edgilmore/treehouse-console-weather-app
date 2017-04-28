@@ -6,7 +6,7 @@ weather.getWeather(params[2].toString())
     switch (response.cod) {
       case 200:
         {
-          process.stdout.write(weather.convertTemperature(response.main.temp));
+          process.stdout.write(weather.getWeatherTempatureMessage(response));
           process.exit(0);
           break;
         }
