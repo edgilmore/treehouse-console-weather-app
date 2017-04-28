@@ -1,22 +1,33 @@
-'use strict';
+const config = require('./config').getConfig();
+const http = require('http');
 
-const config = require('./config');
-const https = require('https');
 // send the request
-function sendApiRequest() {
-    https.get(`api.openweathermap.org/data/2.5/weather?${arguments[0]}&appid=${config.weather_api_key}`, (result) => {
-        return result;
+function sendApiRequest(query) {
+  return new Promise((resolve, reject) => {
+    http.get(`http://api.openweathermap.org/data/2.5/weather?${query}&appid=${config.weather_api_key}`, (response) => {
+      let responseData = '';
+      response.on('data', (data) => {
+        responseData += data;
+      });
+      response.on('end', () => {
+        const body = JSON.parse(responseData);
+        resolve(body);
+      });
+    }).on('error', (error) => {
+      reject(error);
     });
-}
-function getZipCodeWeather(zipcode) {
-    // send a request based on zipcode
-    return sendApiRequest(`zip=${zipcode}`);
+  });
 }
 
-function getStateCityWeather(city, state) {
-    // send a requedst based on location
-    return sendApiRequest(`city=${city}&state=${state}`);
+function convertFromKelvinToFahrenheight(kelvinTemperature) {
+  const convertedTemp = ((kelvinTemperature * (9 / 5)) - 459.67);
+  return `${convertedTemp.toFixed(2)} F`;
 }
 
-module.exports.getWeatherByZipCode = getZipCodeWeather;
-module.exports.getWeatherByLocation = getStateCityWeather;
+function getWeather(searchString) {
+  // send a request based on zipcode
+  return sendApiRequest(`q=${searchString},us`);
+}
+
+module.exports.getWeather = getWeather;
+module.exports.convertTemperature = convertFromKelvinToFahrenheight;
