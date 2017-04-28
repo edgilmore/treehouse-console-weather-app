@@ -1,7 +1,7 @@
 const config = require('./config').getConfig();
 const http = require('http');
 
-// send the request
+// create a promise that sends the request to the api
 function sendApiRequest(query) {
   return new Promise((resolve, reject) => {
     http.get(`http://api.openweathermap.org/data/2.5/weather?${query}&appid=${config.weather_api_key}`, (response) => {
@@ -25,7 +25,6 @@ function convertFromKelvinToFahrenheight(kelvinTemperature) {
 }
 
 function getWeather(searchString) {
-  // send a request based on zipcode
   return sendApiRequest(`q=${searchString},us`);
 }
 
