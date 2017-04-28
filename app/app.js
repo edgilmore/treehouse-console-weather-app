@@ -1,6 +1,5 @@
 const weather = require('./weather.js');
 
-
 const params = process.argv;
 weather.getWeather(params[2].toString())
   .then((response) => {
