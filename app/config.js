@@ -1,16 +1,7 @@
 
-const fs = require('fs');
-
-const fileName = './config.json';
-let config;
+const config = require('./config.json');
 
 function getConfig() {
-  try {
-    config = require(fileName);
-  } catch (error) {
-    config = {};
-    throw error;
-  }
   return config;
 }
 
